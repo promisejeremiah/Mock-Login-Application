@@ -1,4 +1,5 @@
 import socket
+import bcrypt
 
 #socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -18,14 +19,15 @@ client, addr = s.accept()
 print(f'connection received from {addr} ')
 
 password = 'myuser' #initialize password
-
+hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 #receive password from client
-passwd = client.recv(1024).decode().strip()
+passwd = client.recv(1024).decode()
 
 #Authenticate the client
-if passwd == password: #check if client password matches server password
-    client.sendall(str.encode('Authentication successful')) #send authentication message to client
-    print('CLIENT>>> Authentication successful')
+if bcrypt.checkpw(passwd.encode(), hashed): #check if client password matches server password
+#if passwd == password:
+    client.sendall(str.encode('Access granted')) #send authentication message to client
+    print('CLIENT>>> Access granted')
 else:
     client.sendall(str.encode('Access denied'))
     client.close()
