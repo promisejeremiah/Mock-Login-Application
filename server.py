@@ -19,13 +19,13 @@ client, addr = s.accept()
 print(f'connection received from {addr} ')
 
 password = 'myuser' #initialize password
-hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-#receive password from client
-passwd = client.recv(1024).decode()
+hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt()) #hash the password
+
+
+passwd = client.recv(1024).decode() #receive password from client
 
 #Authenticate the client
 if bcrypt.checkpw(passwd.encode(), hashed): #check if client password matches server password
-#if passwd == password:
     client.sendall(str.encode('Access granted')) #send authentication message to client
     print('CLIENT>>> Access granted')
 else:
