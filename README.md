@@ -1,11 +1,11 @@
-# Mock-Login-Application
-This repo contains a mock login application built in python using sockets.
+# Mock-Login and Chat-Application
+This repo contains a mock login and chat application built in python using sockets.
 
 The server.py has the password.
 
-When clients connect they first send a password that the user on the client types.
+When clients connect they first type a password and it is sent to the server.
 
-Your server check to ensure that this password matches.
+The server check to ensure that this password matches.
 
 If the password does not match, the connection closes and it sends a message to the client stating 'access denied'
 
